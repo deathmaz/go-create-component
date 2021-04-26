@@ -45,7 +45,7 @@ func (v Vue) GetJs() string {
 		return `export default {};`
 	} else {
 		return `import {
-  defineComponent, ref,
+  defineComponent,
 } from '@vue/composition-api';
 
 export default defineComponent({});`
@@ -58,7 +58,7 @@ func (v Vue) GetTs() string {
 export default Vue.extend({});`
 	} else {
 		return `import {
-  defineComponent, ref,
+  defineComponent,
 } from '@vue/composition-api';
 
 export default defineComponent({});`
@@ -74,7 +74,7 @@ func (v Vue) GetTemplate() string {
 
 func (v Vue) GetStyle() string {
 	return `<style lang="scss" scoped>
-@use './` + v.Name + `.scss'
+@use './` + v.Name + `.scss';
 </style>`
 }
 
