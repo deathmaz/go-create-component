@@ -23,13 +23,17 @@ func NewVue(o Options) Vue {
 }
 
 func (v Vue) GetScript() string {
-	ts := ` lang="ts"`
+	ts := ` setup lang="ts"`
 	if !v.Typescript {
 		ts = ""
 	}
-	return fmt.Sprintf(`<script%s>
+	if v.GetCode() == "" {
+		return fmt.Sprintf(`<script%s></script>`, ts)
+	} else {
+		return fmt.Sprintf(`<script%s>
 %s
 </script>`, ts, v.GetCode())
+	}
 }
 
 func (v Vue) GetCode() string {
@@ -46,7 +50,7 @@ func (v Vue) GetJs() string {
 	} else {
 		return `import {
   defineComponent,
-} from '@vue/composition-api';
+} from 'vue';
 
 export default defineComponent({});`
 	}
@@ -57,11 +61,7 @@ func (v Vue) GetTs() string {
 		return `import Vue from 'vue';
 export default Vue.extend({});`
 	} else {
-		return `import {
-  defineComponent,
-} from '@vue/composition-api';
-
-export default defineComponent({});`
+		return ``
 	}
 }
 
